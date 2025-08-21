@@ -1,97 +1,115 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📱 AeonMobile
 
-# Getting Started
+AeonMobile is a simple **React Native demo project** built to showcase best practices in navigation, state management with **Zustand**, and API mocking for transactions.  
+The app contains **two screens**:  
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+- **Transaction List** → shows a list of transactions.  
+- **Transaction Detail** → shows detailed info of a transaction, with the ability to **share externally** (simple PDF).  
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🚀 Getting Started
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+### 1. Clone the repository
+```bash
+git clone https://github.com/dumadoniagara/aeon-mobile.git
+cd AeonMobile
 ```
 
-## Step 2: Build and run your app
+### 2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### 3. iOS setup (Mac only)
+```bash
+cd ios
+pod install
+cd ..
+```
 
-### Android
-
-```sh
-# Using npm
+### 4. Run the app
+#### For Android:
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+#### For iOS:
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+#### Start Metro bundler:
+```bash
+npm start
+```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## 📂 Project Structure
 
-Now that you have successfully run the app, let's make changes!
+```
+AeonMobile/
+├── src/
+│   ├── api/                  # API layer (mock API for transactions)
+│   │   └── transactionApi.ts
+│   │
+│   ├── components/           # Reusable UI components
+│   │   └── TransactionCard.tsx
+│   │
+│   ├── mocks/                # Mock JSON data
+│   │   └── transactions.json
+│   │
+│   ├── navigation/           # Navigation setup
+│   │   ├── RootNavigator.tsx
+│   │   └── types.ts
+│   │
+│   ├── screens/              # Application screens
+│   │   ├── TransactionList/
+│   │   │   └── index.tsx
+│   │   └── TransactionDetail/
+│   │       └── index.tsx
+│   │
+│   ├── store/                # Global state using Zustand
+│   │   └── transactionStore.ts
+│   │
+│   ├── utils/                # Utility functions
+│   │   ├── formatDateTime.ts
+│   │   └── formatCurrency.ts
+│   │
+│   └── App.tsx               # Entry point (loads RootNavigator)
+│
+├── package.json
+├── tsconfig.json
+└── README.md
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+---
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## ✨ Features
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- ⚛️ Built with **React Native 0.81** & **React 19**  
+- 🧭 Navigation using **React Navigation (Native Stack)**  
+- 💾 State management with **Zustand**  
+- 📂 Clean folder structure (scalable for larger apps)  
+- 📝 Mocked API with `transactions.json`  
+- 📱 Transaction List → Detail flow  
+- 📤 Share transaction details (PDF)  
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+## 🎥 Demo Video
+👉 *[Attach your demo video here]*  
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## 💡 Notes
+- This project is a demo setup for interview/assessment purposes.  
+- Can easily be extended to real APIs (replace `transactionApi.ts` with axios/fetch).  
+- UI is kept minimal & clean, but the structure is production-ready.  
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+🔥 With this setup, you have a **clean, scalable React Native project** that shows off navigation, state management, API handling, and external sharing capability.
