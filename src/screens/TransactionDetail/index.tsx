@@ -5,13 +5,14 @@ import {
   StyleSheet,
   ActivityIndicator,
   Button,
-  Share,
 } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/types';
 import { getTransactionById, Transaction } from '../../api/transactionApi';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDateTime } from '../../utils/formatDateTime';
+import RNHTMLtoPDF from "react-native-html-to-pdf";
+import Share from "react-native-share";
 
 type DetailRouteProp = RouteProp<RootStackParamList, 'TransactionDetail'>;
 
@@ -51,19 +52,33 @@ export default function TransactionDetail() {
   const isNegative = amount < 0;
   const { full: dateTime } = formatDateTime(transferDate);
 
-  const handleShare = async () => {
+
+  const generateAndSharePDF = async () => {
     try {
-      await Share.share({
-        message:
-          `💸 Transaction Detail\n\n` +
-          `Transfer Name: ${transferName}\n` +
-          `Recipient: ${recipientName}\n` +
-          `Reference ID: ${refId}\n` +
-          `Date & Time: ${dateTime}\n` +
-          `Amount: ${isNegative ? '-' : '+'} ${formatCurrency(amount)}`,
+      const htmlContent = `
+        <h1>Transaction Receipt</h1>
+        <p><strong>Transfer Name:</strong> ${transferName}</p>
+        <p><strong>Recipient:</strong> ${recipientName}</p>
+        <p><strong>Reference ID:</strong> ${refId}</p>
+        <p><strong>Date & Time:</strong> ${dateTime}</p>
+        <p><strong>Amount:</strong> ${isNegative ? "-" : "+"} ${formatCurrency(amount)}</p>
+      `;
+
+      const options = {
+        html: htmlContent,
+        fileName: `Transaction_${refId}`,
+        directory: "Documents",
+      };
+
+      const file = await RNHTMLtoPDF.convert(options);
+
+      await Share.open({
+        title: "Share Transaction PDF",
+        url: `file://${file.filePath}`,
+        type: "application/pdf",
       });
     } catch (error) {
-      console.error('Error sharing:', error);
+      console.error("Error generating PDF:", error);
     }
   };
 
@@ -89,7 +104,7 @@ export default function TransactionDetail() {
       </Text>
 
       <View style={{ marginTop: 24 }}>
-        <Button title="Share Transaction" onPress={handleShare} />
+        <Button title="Share Transaction" onPress={generateAndSharePDF} />
       </View>
     </View>
   );
